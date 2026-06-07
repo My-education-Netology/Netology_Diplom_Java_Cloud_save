@@ -1,0 +1,37 @@
+# Сборка и зависимости
+target/
+build/
+.gradle/
+*.class
+*.jar
+*.war
+*.ear
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Логи и временные файлы
+log/
+*.log
+tmp/
+temp/
+
+# Конфиденциальные данные
+.env
+.env.local
+
+# Node.js (фронтенд для локальной разработки)
+node_modules/
+dist/
+
+# Загруженные файлы пользователей
+uploads/
+storage/
+
+# Docker volumes
+docker-data/
