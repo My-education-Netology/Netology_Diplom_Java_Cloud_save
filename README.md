@@ -205,6 +205,25 @@ cors.allowed-origins: http://localhost:8081
 
 | Версия | Дата | Описание |
 |--------|------|----------|
-| 0.1.0 | 2025-06-07 | Подготовка: анализ, материалы, Roadmap |
-| 1.0.0 | 2025-06-07 | Реализация backend, тесты, Docker |
-| 1.1.0 | 2025-06-07 | Финальная документация, проверка, push |
+| 0.1.0 | 2025-06-07 | Сохранены исходные материалы задания: cloudservice.md, YAML-спецификация, FRONT и mock-backend |
+| 0.2.0 | 2025-06-07 | Описана архитектура приложения и протокол взаимодействия FRONT ↔ BACKEND |
+| 0.3.0 | 2025-06-07 | Составлены README, ROADMAP и структура репозитория |
+| 1.0.0 | 2025-06-07 | Инициализирован Spring Boot 3.5 проект с Gradle Wrapper |
+| 1.0.1 | 2025-06-07 | Добавлен application.yml: PostgreSQL, Flyway, multipart, CORS, пути хранения |
+| 1.1.0 | 2025-06-07 | Реализованы JPA-сущности User, AuthToken, StoredFile |
+| 1.1.1 | 2025-06-07 | Добавлены JPA-репозитории с изоляцией данных по пользователю |
+| 1.1.2 | 2025-06-07 | Добавлена Flyway-миграция схемы БД (users, auth_tokens, stored_files) |
+| 1.2.0 | 2025-06-07 | Добавлены DTO: LoginResponse с полем auth-token, FileInfoResponse, ошибки login |
+| 1.3.0 | 2025-06-07 | Реализован POST /login с BCrypt и выдачей токена |
+| 1.3.1 | 2025-06-07 | Добавлены auth-интерцептор, POST /logout и настройка CORS для FRONT |
+| 1.4.0 | 2025-06-07 | Реализован FileStorageService — хранение бинарных файлов на диске |
+| 1.4.1 | 2025-06-07 | Реализованы эндпоинты GET /list, POST/GET/PUT/DELETE /file |
+| 1.4.2 | 2025-06-07 | Добавлен GlobalExceptionHandler и автосоздание пользователя test/test |
+| 1.5.0 | 2025-06-07 | Добавлены Dockerfile и docker-compose (backend + PostgreSQL 16) |
+| 1.6.0 | 2025-06-07 | Unit-тесты AuthService (Mockito): login, logout, validateToken |
+| 1.6.1 | 2025-06-07 | Unit-тесты FileService (Mockito): upload, list, rename, delete |
+| 1.6.2 | 2025-06-07 | MockMvc-тест AuthController: проверка поля auth-token в ответе |
+| 1.6.3 | 2025-06-07 | Интеграционные тесты с Testcontainers (полный цикл файловых операций) |
+| 1.7.0 | 2025-06-07 | Обновлены README и ROADMAP после завершения реализации backend |
+| 1.8.0 | 2025-06-07 | Добавлены COMPLIANCE, VERIFICATION, INSTALL, TROUBLESHOOTING, IMPLEMENTATION |
+| 1.8.1 | 2025-06-07 | Финальная проверка API (curl), соответствие ТЗ, публикация на GitHub |
