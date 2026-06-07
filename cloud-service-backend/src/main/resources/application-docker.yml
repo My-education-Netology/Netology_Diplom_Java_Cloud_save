@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/cloudstorage
+    username: cloud
+    password: cloud
+
+storage:
+  files:
+    path: /app/storage/files
