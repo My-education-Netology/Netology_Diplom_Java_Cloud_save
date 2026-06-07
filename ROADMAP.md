@@ -128,7 +128,7 @@
 | 6.2 | Unit-тесты контроллеров (MockMvc + Mockito) | `[v]` |
 | 6.3 | Интеграционные тесты (Testcontainers + PostgreSQL) | `[v]` |
 | 6.4 | Ручное тестирование через curl/Postman | `[v]` |
-| 6.5 | Интеграционное тестирование с FRONT | `[w]` |
+| 6.5 | Интеграционное тестирование с FRONT | `[v]` |
 
 **Коммиты (план):**
 - `test: add unit tests for auth service`
@@ -146,7 +146,7 @@
 | 7.2 | Диаграмма архитектуры (Mermaid в `Docs/`) | `[v]` |
 | 7.3 | Инструкция запуска FRONT + BACKEND | `[v]` |
 | 7.4 | Финальная проверка docker-compose | `[v]` |
-| 7.5 | Push в GitHub | `[ ]` |
+| 7.5 | Push в GitHub | `[v]` |
 
 **Коммиты (план):**
 - `docs: update README with run instructions`
