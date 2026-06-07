@@ -29,9 +29,10 @@ temp/
 node_modules/
 dist/
 
-# Загруженные файлы пользователей
-uploads/
-storage/
+# Загруженные файлы пользователей (только корневые каталоги данных)
+/uploads/
+/storage/
+/cloud-service-backend/storage/
 
 # Docker volumes
 docker-data/
