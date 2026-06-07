@@ -25,11 +25,11 @@
 
 | # | Задача | Статус |
 |---|--------|--------|
-| 1.1 | Создать модуль `cloud-service-backend` (Gradle, Spring Boot 3.x, Java 17+) | `[ ]` |
-| 1.2 | Настроить `application.yml` — порт, БД, пути хранения файлов, CORS | `[ ]` |
-| 1.3 | Подключить зависимости: Spring Web, Spring Data JPA, PostgreSQL, Lombok, Validation | `[ ]` |
-| 1.4 | Создать базовую структуру пакетов (`controller`, `service`, `repository`, `model`, `config`, `security`, `exception`) | `[ ]` |
-| 1.5 | Добавить `Dockerfile` и `docker-compose.yml` (app + PostgreSQL) | `[ ]` |
+| 1.1 | Создать модуль `cloud-service-backend` (Gradle, Spring Boot 3.x, Java 17+) | `[v]` |
+| 1.2 | Настроить `application.yml` — порт, БД, пути хранения файлов, CORS | `[v]` |
+| 1.3 | Подключить зависимости: Spring Web, Spring Data JPA, PostgreSQL, Lombok, Validation | `[v]` |
+| 1.4 | Создать базовую структуру пакетов (`controller`, `service`, `repository`, `model`, `config`, `security`, `exception`) | `[v]` |
+| 1.5 | Добавить `Dockerfile` и `docker-compose.yml` (app + PostgreSQL) | `[v]` |
 
 **Коммиты (план):**
 - `init: scaffold Spring Boot project with Gradle`
@@ -42,12 +42,12 @@
 
 | # | Задача | Статус |
 |---|--------|--------|
-| 2.1 | Entity `User` — id, login, password (BCrypt hash) | `[ ]` |
-| 2.2 | Entity `AuthToken` — token, userId, createdAt, active | `[ ]` |
-| 2.3 | Entity `StoredFile` — id, userId, filename, size, storagePath, createdAt, editedAt | `[ ]` |
-| 2.4 | JPA-репозитории для всех сущностей | `[ ]` |
-| 2.5 | Flyway/Liquibase миграции или `schema.sql` + тестовые пользователи | `[ ]` |
-| 2.6 | DataInitializer — создать пользователя `test` / `test` для проверки с FRONT | `[ ]` |
+| 2.1 | Entity `User` — id, login, password (BCrypt hash) | `[v]` |
+| 2.2 | Entity `AuthToken` — token, userId, createdAt, active | `[v]` |
+| 2.3 | Entity `StoredFile` — id, userId, filename, size, storagePath, createdAt, editedAt | `[v]` |
+| 2.4 | JPA-репозитории для всех сущностей | `[v]` |
+| 2.5 | Flyway/Liquibase миграции или `schema.sql` + тестовые пользователи | `[v]` |
+| 2.6 | DataInitializer — создать пользователя `test` / `test` для проверки с FRONT | `[v]` |
 
 **Коммиты (план):**
 - `feat: add User and AuthToken entities`
@@ -60,12 +60,12 @@
 
 | # | Задача | Статус |
 |---|--------|--------|
-| 3.1 | `POST /login` — проверка login/password, ответ `{"auth-token": "..."}` | `[ ]` |
-| 3.2 | `POST /logout` — деактивация токена | `[ ]` |
-| 3.3 | Фильтр/интерцептор: чтение заголовка `auth-token` с префиксом `Bearer ` | `[ ]` |
-| 3.4 | Обработка 401 для неавторизованных запросов | `[ ]` |
-| 3.5 | Обработка 400 при неверных credentials в формате `{email: [], password: []}` | `[ ]` |
-| 3.6 | Настройка CORS для `http://localhost:8081` (адрес FRONT) | `[ ]` |
+| 3.1 | `POST /login` — проверка login/password, ответ `{"auth-token": "..."}` | `[v]` |
+| 3.2 | `POST /logout` — деактивация токена | `[v]` |
+| 3.3 | Фильтр/интерцептор: чтение заголовка `auth-token` с префиксом `Bearer ` | `[v]` |
+| 3.4 | Обработка 401 для неавторизованных запросов | `[v]` |
+| 3.5 | Обработка 400 при неверных credentials в формате `{email: [], password: []}` | `[v]` |
+| 3.6 | Настройка CORS для `http://localhost:8081` (адрес FRONT) | `[v]` |
 
 **Коммиты (план):**
 - `feat: implement login endpoint with auth-token response`
@@ -79,13 +79,13 @@
 
 | # | Задача | Статус |
 |---|--------|--------|
-| 4.1 | `GET /list?limit=N` — список файлов текущего пользователя | `[ ]` |
-| 4.2 | `POST /file?filename=...` — загрузка multipart (`file`) | `[ ]` |
-| 4.3 | `GET /file?filename=...` — скачивание (blob) | `[ ]` |
-| 4.4 | `PUT /file?filename=...` — переименование | `[ ]` |
-| 4.5 | `DELETE /file?filename=...` — удаление файла и записи в БД | `[ ]` |
-| 4.6 | Хранение бинарных данных на диске (путь из `application.yml`) | `[ ]` |
-| 4.7 | Изоляция файлов по пользователям | `[ ]` |
+| 4.1 | `GET /list?limit=N` — список файлов текущего пользователя | `[v]` |
+| 4.2 | `POST /file?filename=...` — загрузка multipart (`file`) | `[v]` |
+| 4.3 | `GET /file?filename=...` — скачивание (blob) | `[v]` |
+| 4.4 | `PUT /file?filename=...` — переименование | `[v]` |
+| 4.5 | `DELETE /file?filename=...` — удаление файла и записи в БД | `[v]` |
+| 4.6 | Хранение бинарных данных на диске (путь из `application.yml`) | `[v]` |
+| 4.7 | Изоляция файлов по пользователям | `[v]` |
 
 **Формат ответа `/list` (требование FRONT):**
 ```json
@@ -110,9 +110,9 @@
 
 | # | Задача | Статус |
 |---|--------|--------|
-| 5.1 | `@ControllerAdvice` — единый обработчик ошибок | `[ ]` |
-| 5.2 | Ответы 400/401/500 в формате, совместимом с FRONT | `[ ]` |
-| 5.3 | Валидация входных параметров (filename, limit, multipart) | `[ ]` |
+| 5.1 | `@ControllerAdvice` — единый обработчик ошибок | `[v]` |
+| 5.2 | Ответы 400/401/500 в формате, совместимом с FRONT | `[v]` |
+| 5.3 | Валидация входных параметров (filename, limit, multipart) | `[v]` |
 
 **Коммиты (план):**
 - `feat: add global exception handler`
@@ -124,11 +124,11 @@
 
 | # | Задача | Статус |
 |---|--------|--------|
-| 6.1 | Unit-тесты сервисов (Mockito) — AuthService, FileService | `[ ]` |
-| 6.2 | Unit-тесты контроллеров (MockMvc + Mockito) | `[ ]` |
-| 6.3 | Интеграционные тесты (Testcontainers + PostgreSQL) | `[ ]` |
-| 6.4 | Ручное тестирование через curl/Postman | `[ ]` |
-| 6.5 | Интеграционное тестирование с FRONT | `[ ]` |
+| 6.1 | Unit-тесты сервисов (Mockito) — AuthService, FileService | `[v]` |
+| 6.2 | Unit-тесты контроллеров (MockMvc + Mockito) | `[v]` |
+| 6.3 | Интеграционные тесты (Testcontainers + PostgreSQL) | `[v]` |
+| 6.4 | Ручное тестирование через curl/Postman | `[v]` |
+| 6.5 | Интеграционное тестирование с FRONT | `[w]` |
 
 **Коммиты (план):**
 - `test: add unit tests for auth service`
@@ -142,10 +142,10 @@
 
 | # | Задача | Статус |
 |---|--------|--------|
-| 7.1 | Актуализировать `README.md` — запуск, API, тестирование | `[ ]` |
-| 7.2 | Диаграмма архитектуры (Mermaid в `Docs/`) | `[ ]` |
-| 7.3 | Инструкция запуска FRONT + BACKEND | `[ ]` |
-| 7.4 | Финальная проверка docker-compose | `[ ]` |
+| 7.1 | Актуализировать `README.md` — запуск, API, тестирование | `[v]` |
+| 7.2 | Диаграмма архитектуры (Mermaid в `Docs/`) | `[v]` |
+| 7.3 | Инструкция запуска FRONT + BACKEND | `[v]` |
+| 7.4 | Финальная проверка docker-compose | `[v]` |
 | 7.5 | Push в GitHub | `[ ]` |
 
 **Коммиты (план):**

@@ -15,10 +15,10 @@ REST-сервис облачного хранилища на **Spring Boot** с 
 |------|--------|
 | Анализ задания и материалов | ✅ Завершён |
 | Документация и Roadmap | ✅ Завершён |
-| Реализация Spring Boot backend | ⏳ Запланировано |
-| Unit- и интеграционные тесты | ⏳ Запланировано |
-| Docker / docker-compose | ⏳ Запланировано |
-| Проверка с FRONT | ⏳ Запланировано |
+| Реализация Spring Boot backend | ✅ Завершён |
+| Unit- и интеграционные тесты | ✅ Завершён |
+| Docker / docker-compose | ✅ Завершён |
+| Проверка с FRONT | ⏳ Требует ручного запуска |
 
 Подробный план работ: [ROADMAP.md](ROADMAP.md)
 
@@ -28,60 +28,45 @@ REST-сервис облачного хранилища на **Spring Boot** с 
 
 ```
 .
-├── README.md                          # Этот файл
-├── ROADMAP.md                         # План разработки со статусами
-├── .gitignore
-├── Docs/
-│   └── cloud-service/
-│       ├── cloudservice.md            # Исходное задание Нетологии
-│       ├── CloudServiceSpecification.yaml
-│       ├── API_CONTRACT.md            # Анализ протокола FRONT ↔ BACKEND
-│       ├── ARCHITECTURE.md            # Архитектура и схема БД
-│       ├── netology-diplom-frontend/  # Исходный FRONT (Vue.js, не изменять)
-│       └── netology-diplom-backend/   # Эталонный mock-backend (справочно)
-└── cloud-service-backend/             # Spring Boot REST-сервис (будет создан)
+├── README.md
+├── ROADMAP.md
+├── docker-compose.yml
+├── Docs/cloud-service/          # Задание, FRONT, документация
+└── cloud-service-backend/         # Spring Boot REST-сервис
+    ├── Dockerfile
+    ├── build.gradle
+    └── src/
+        ├── main/java/com/netology/cloud/
+        │   ├── controller/      # AuthController, FileController
+        │   ├── service/         # AuthService, FileService
+        │   ├── repository/      # JPA-репозитории
+        │   ├── model/           # Entity + DTO
+        │   ├── security/        # AuthInterceptor
+        │   ├── storage/         # FileStorageService
+        │   ├── config/          # CORS, Flyway, DataInitializer
+        │   └── exception/       # GlobalExceptionHandler
+        └── test/                # Unit + Integration (Testcontainers)
 ```
 
 ---
 
-## Описание задачи
+## API-эндпоинты
 
-Разработать REST-сервис, который:
+| Метод | Путь | Auth | Описание |
+|-------|------|------|----------|
+| POST | `/login` | Нет | Авторизация → `{"auth-token":"..."}` |
+| POST | `/logout` | Да | Выход, деактивация токена |
+| GET | `/list?limit=N` | Да | Список файлов пользователя |
+| POST | `/file?filename=` | Да | Загрузка (multipart, поле `file`) |
+| GET | `/file?filename=` | Да | Скачивание файла |
+| PUT | `/file?filename=` | Да | Переименование |
+| DELETE | `/file?filename=` | Да | Удаление |
 
-1. Авторизует пользователей (`POST /login`, `POST /logout`)
-2. Возвращает список файлов пользователя (`GET /list`)
-3. Загружает файлы (`POST /file`)
-4. Скачивает файлы (`GET /file`)
-5. Переименовывает файлы (`PUT /file`)
-6. Удаляет файлы (`DELETE /file`)
-
-Все запросы (кроме `/login`) авторизованы заголовком `auth-token`.  
-Настройки — из `application.yml`. Данные пользователей и метаданные файлов — в PostgreSQL.
-
----
-
-## Требования к реализации (из задания)
-
-- Spring Boot + Gradle
-- Docker / docker-compose
-- Unit-тесты (Mockito)
-- Интеграционные тесты (Testcontainers)
-- Код на GitHub
-- Совместимость с FRONT без доработок
+Заголовок авторизации: `auth-token: Bearer <token>`
 
 ---
 
-## Документация
-
-| Документ | Описание |
-|----------|----------|
-| [ROADMAP.md](ROADMAP.md) | Поэтапный план с чеклистами и стратегией коммитов |
-| [API_CONTRACT.md](Docs/cloud-service/API_CONTRACT.md) | Детальный протокол взаимодействия с FRONT |
-| [ARCHITECTURE.md](Docs/cloud-service/ARCHITECTURE.md) | Архитектура, схема БД, диаграммы |
-
----
-
-## Запуск (после реализации backend)
+## Запуск
 
 ### Предварительные требования
 
@@ -92,10 +77,10 @@ REST-сервис облачного хранилища на **Spring Boot** с 
 ### 1. Backend + PostgreSQL
 
 ```bash
-docker-compose up -d
+docker compose up -d --build
 ```
 
-Backend будет доступен на `http://localhost:8080`.
+Backend: `http://localhost:8080`
 
 ### 2. FRONT
 
@@ -104,7 +89,7 @@ cd Docs/cloud-service/netology-diplom-frontend
 npm install
 ```
 
-Убедитесь, что в `.env` указан URL backend:
+В `.env` должен быть URL backend:
 ```
 VUE_APP_BASE_URL=http://localhost:8080
 ```
@@ -113,13 +98,39 @@ VUE_APP_BASE_URL=http://localhost:8080
 npm run serve
 ```
 
-FRONT откроется на `http://localhost:8081` (если порт 8080 занят backend).
+FRONT: `http://localhost:8081` (если 8080 занят backend).
 
 ### 3. Тестовый вход
 
 | Логин | Пароль |
 |-------|--------|
 | test | test |
+
+---
+
+## Локальная разработка (без Docker)
+
+```bash
+# Запустить только PostgreSQL
+docker compose up -d postgres
+
+# Запустить backend
+cd cloud-service-backend
+./gradlew bootRun
+```
+
+---
+
+## Тесты
+
+```bash
+cd cloud-service-backend
+./gradlew test
+```
+
+- **Unit-тесты** — AuthService, FileService (Mockito)
+- **MockMvc** — AuthController
+- **Интеграционные** — Testcontainers + PostgreSQL (требует Docker)
 
 ---
 
@@ -131,11 +142,11 @@ curl -X POST http://localhost:8080/login \
   -H "Content-Type: application/json" \
   -d '{"login":"test","password":"test"}'
 
-# Список файлов (подставить токен из ответа login)
-curl http://localhost:8080/list?limit=10 \
+# Список файлов
+curl "http://localhost:8080/list?limit=10" \
   -H "auth-token: Bearer <TOKEN>"
 
-# Загрузка файла
+# Загрузка
 curl -X POST "http://localhost:8080/file?filename=test.txt" \
   -H "auth-token: Bearer <TOKEN>" \
   -F "file=@/path/to/test.txt"
@@ -147,4 +158,5 @@ curl -X POST "http://localhost:8080/file?filename=test.txt" \
 
 | Версия | Дата | Описание |
 |--------|------|----------|
-| 0.1.0 | 2025-06-07 | Подготовка: анализ задания, материалы, документация, Roadmap |
+| 0.1.0 | 2025-06-07 | Подготовка: анализ задания, материалы, документация |
+| 1.0.0 | 2025-06-07 | Реализация backend, тесты, docker-compose |
